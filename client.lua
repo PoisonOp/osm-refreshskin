@@ -9,27 +9,30 @@ Citizen.CreateThread(function()
     end
   end
 end)
+
 ----------------------------------------------------------------------------------------------------
 
--- Command /reloadskin
-RegisterCommand("reloadskin", function(source, args, rawCommand)
-  reloadSkin()
-end)
-
--- Command /rskin
-RegisterCommand("rskin", function(source, args, rawCommand)
+RegisterCommand("refresskin", function(source, args, rawCommand)
   reloadSkin()
 end)
 
 function reloadSkin()
+
   local model = nil
        
-  model = GetHashKey("mp_m_freemode_01")
+  local gender = QBCore.Functions.GetPlayerData().charinfo.gender
+
+  if gender == 1 then -- Gender is ONE for FEMALE
+    model = GetHashKey("mp_f_freemode_01") -- Female Model
+  else 
+    model = GetHashKey("mp_m_freemode_01") -- Male Model
+  end 
 
   RequestModel(model)
 
   SetPlayerModel(PlayerId(), model)
   SetModelAsNoLongerNeeded(model)
 
-  TriggerServerEvent("qb-clothes:loadPlayerSkin")
+  TriggerServerEvent("qb-clothes:loadPlayerSkin") -- LOADING PLAYER'S CLOTHES
+
 end
