@@ -12,7 +12,7 @@ end)
 
 ----------------------------------------------------------------------------------------------------
 
-RegisterCommand("refresskin", function(source, args, rawCommand)
+RegisterCommand("refreshskin", function(source, args, rawCommand)
   reloadSkin()
 end)
 
