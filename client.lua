@@ -14,7 +14,10 @@ end)
 
 RegisterCommand("refreshskin", function(source, args, rawCommand)
 
-  local health = GetEntityHealth(PlayerPedId())
+
+  local playerPed = PlayerPedId()
+  local maxhealth = GetEntityMaxHealth(playerPed)
+  local hp = GetEntityHealth(playerPed)
   reloadSkin(health)
 
 end)
@@ -35,10 +38,11 @@ function reloadSkin(health)
 
   SetPlayerModel(PlayerId(), model)
   SetModelAsNoLongerNeeded(model)
-
+    SetPedMaxHealth(PlayerId(), maxhealth)
   Citizen.Wait(1000) -- Safety Delay
-  SetEntityHealth(PlayerPedId(), health)
 
+  SetEntityHealth(PlayerPedId(), health)
   TriggerServerEvent("qb-clothes:loadPlayerSkin") -- LOADING PLAYER'S CLOTHES
   TriggerServerEvent("qb-clothing:loadPlayerSkin") -- LOADING PLAYER'S CLOTHES - Event 2
+    SetEntityHealth(PlayerPedId(), hp)
 end
